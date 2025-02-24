@@ -8,6 +8,7 @@ import GoLogo from '@assets/go.svg';
 import Barcode from '@assets/barcode.svg';
 import Train from '@assets/train.svg';
 import RightArrow from '@assets/rightarrow.svg';
+import ConfigModal from '@/components/ConfigModal';
 
 // Constants
 const VALID_DURATION = 24 * 60 * 60; // 24 hours in seconds
@@ -19,21 +20,26 @@ interface TimeState {
   timeRemaining: number;
   activationTime: Date;
   ticketNumber: string;
+  validDuration: number;
+  passengerCount: number;
 }
 
 const TicketPage: React.FC = () => {
-  // Initialize state with null values until component mounts
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeState, setTimeState] = useState<TimeState | null>(null);
 
-  // Setup timer and initial values
   useEffect(() => {
-    const activationTime = new Date(new Date().setHours(10, 0, 0));
-    const ticketNumber = generateTicketNumber();
+    // Set activation time to 20 hours ago
+    const now = new Date();
+    const activationTime = new Date(now.getTime() - 20 * 60 * 60 * 1000);
+
     const initialState: TimeState = {
-      currentTime: new Date(),
+      currentTime: now,
       timeRemaining: VALID_DURATION,
       activationTime,
-      ticketNumber,
+      ticketNumber: generateTicketNumber(),
+      validDuration: VALID_DURATION,
+      passengerCount: 1,
     };
 
     setTimeState(initialState);
@@ -60,6 +66,17 @@ const TicketPage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleConfigChange = (newConfig: Partial<TimeState>) => {
+    setTimeState((prev) => {
+      if (!prev) return prev;
+      return { ...prev, ...newConfig };
+    });
+  };
+
+  const handleGenerateNewTicket = () => {
+    handleConfigChange({ ticketNumber: generateTicketNumber() });
+  };
+
   // Show loading state if data isn't ready
   if (!timeState) {
     return <p>Loading...</p>;
@@ -73,7 +90,25 @@ const TicketPage: React.FC = () => {
 
   return (
     <>
-      <Image src={GoLogo} alt="GO Transit logo" className="my-4 h-[45px]" />
+      <div onClick={() => setIsModalOpen(true)} className="cursor-pointer">
+        <Image src={GoLogo} alt="GO Transit logo" className="my-4 h-[45px]" />
+      </div>
+
+      {timeState && (
+        <ConfigModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          config={{
+            validDuration: timeState.validDuration,
+            activationTime: timeState.activationTime,
+            ticketNumber: timeState.ticketNumber,
+            passengerCount: timeState.passengerCount,
+          }}
+          onConfigChange={handleConfigChange}
+          onGenerateNewTicket={handleGenerateNewTicket}
+        />
+      )}
+
       <Marquee speed={100} autoFill>
         <div className="flex w-96 flex-row items-center justify-between">
           <h1 className="text-2xl font-bold">GO TRANSIT</h1>
@@ -89,6 +124,7 @@ const TicketPage: React.FC = () => {
         ticketNumber={timeState.ticketNumber}
         currentTime={timeState.currentTime}
         timeSinceActivation={timeSinceActivation}
+        passengerCount={timeState.passengerCount}
       />
       <TicketFooter timeRemaining={timeState.timeRemaining} />
     </>
@@ -132,16 +168,18 @@ interface TicketCardProps {
   ticketNumber: string;
   currentTime: Date;
   timeSinceActivation: number;
+  passengerCount: number;
 }
 
 const TicketCard: React.FC<TicketCardProps> = ({
   ticketNumber,
   currentTime,
   timeSinceActivation,
+  passengerCount,
 }) => (
   <div className="border-active-gold relative flex w-full flex-col items-center justify-center space-y-2 border-t-[6px] bg-white py-6 text-black shadow-md shadow-active-gold-light">
     <div className="bg-active-gold absolute left-1/2 top-0 h-[24px] w-[24px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white"></div>
-    <TicketInfoSection />
+    <TicketInfoSection passengerCount={passengerCount} />
     <hr className="border-primary w-full border-2 border-dashed" />
     <BarcodeSection ticketNumber={ticketNumber} />
     <TimeInfoSection
@@ -151,10 +189,12 @@ const TicketCard: React.FC<TicketCardProps> = ({
   </div>
 );
 
-const TicketInfoSection: React.FC = () => (
+const TicketInfoSection: React.FC<{ passengerCount: number }> = ({
+  passengerCount,
+}) => (
   <div className="relative flex w-full flex-row items-center">
     <div className="flex w-1/2 flex-col items-center justify-center">
-      <p className="text-5xl font-bold">x1</p>
+      <p className="text-5xl font-bold">x{passengerCount}</p>
       <p className="text-xl">Passenger(s)</p>
     </div>
     <div className="bg-primary h-full w-px overflow-visible">
