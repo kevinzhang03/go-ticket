@@ -1,0 +1,69 @@
+Corridor,Station,Code,Location,Coordinates,Platforms,Parking,Fare zone,Opening year
+All,Union,UN,"65 Front Street, Toronto",43.6456|-79.3795,17,0,2,1967
+Lakeshore West,Exhibition,EX,"100 Manitoba Drive, Toronto",43.6359|-79.4192,2,0,2,1967
+Lakeshore West,Mimico,MI,"315 Royal York Road, Toronto",43.6164|-79.4972,4,330,3,1967
+Lakeshore West,Long Branch,LO,"20 Brow Drive, Toronto",43.5919|-79.5456,3,49,3,1967
+Lakeshore West,Port Credit,PO,"30 Queen Street East, Mississauga",43.5556|-79.5875,3,946,11,1967
+Lakeshore West,Clarkson,CL,"1110 Southdown Road, Mississauga",43.5129|-79.6340,3,3199,12,1967
+Lakeshore West,Oakville,OA,"214 Cross Avenue, Oakville",43.4546|-79.6828,4,4334,13,1967
+Lakeshore West,Bronte,BO,"2104 Wyecroft Road, Oakville",43.4171|-79.7219,3,2764,14,1967
+Lakeshore West,Appleby,AP,"5111 Fairview Street, Burlington",43.3791|-79.7612,3,2964,15,1988
+Lakeshore West,Burlington,BU,"2101 Fairview Street, Burlington",43.3413|-79.8091,3,2105,16,1980
+Lakeshore West,Aldershot,AL,"1199 Waterdown Road, Burlington",43.3129|-79.8552,4,1689,17,1992
+Lakeshore West,Hamilton,HA,"36 Hunter Street East, Hamilton",43.2530|-79.8691,2,0,18,1996
+Lakeshore West,West Harbour,WR,"353 James Street North, Hamilton",43.2656|-79.8652,2,46,18,2015
+Lakeshore West,St. Catharines,SCTH,"5 Great Western Street, St. Catharines",43.1478|-79.2556,1,0,83,2009
+Lakeshore West,Niagara Falls,NI,"4267 Bridge Street, Niagara Falls",43.1088|-79.0636,1,0,84,2009
+Lakeshore East,Danforth,DA,"213 Main Street, Toronto",43.6866|-79.2994,3,0,6,1967
+Lakeshore East,Scarborough,SC,"3615 St Clair Avenue East, Toronto",43.7169|-79.2550,3,626,6,1967
+Lakeshore East,Eglinton,EG,"2995 Eglinton Avenue East, Toronto",43.7394|-79.2322,2,836,6,1967
+Lakeshore East,Guildwood,GU,"4105 Kingston Road, Toronto",43.7550|-79.1980,3,1437,8,1967
+Lakeshore East,Rouge Hill,RO,"6251 Lawrence Avenue East, Toronto",43.7802|-79.1302,2,1407,9,1967
+Lakeshore East,Pickering,PIN,"1322 Bayly Street, Pickering",43.8311|-79.0857,3,3589,91,1967
+Lakeshore East,Ajax,AJ,"100 Westney Road South, Ajax",43.8484|-79.0416,2,1644,92,1988
+Lakeshore East,Whitby,WH,"1350 Brock Street South, Whitby",43.8648|-78.9380,2,3930,93,1988
+Lakeshore East,Oshawa,OS,"915 Bloor Street West, Oshawa",43.8708|-78.8847,2,2643,94,1995
+Milton,Kipling,KP,"27 St Albans Road, Toronto",43.6357|-79.5373,2,0,3,1981
+Milton,Dixie,DI,"2445 Dixie Road, Mississauga",43.6078|-79.5774,1,936,11,1981
+Milton,Cooksville,CO,"3210 Hurontario Street, Mississauga",43.5832|-79.6239,1,1675,11,1981
+Milton,Erindale,ER,"1320 Rathburn Road West, Mississauga",43.5690|-79.6689,2,2201,12,1981
+Milton,Streetsville,SR,"45 Thomas Street, Mississauga",43.5761|-79.7087,2,1540,21,1981
+Milton,Meadowvale,ME,"6845 Millcreek Drive, Mississauga",43.5978|-79.7542,1,2010,22,1981
+Milton,Lisgar,LS,"3250 Argentia Road, Mississauga",43.5906|-79.7883,1,792,23,2007
+Milton,Milton,ML,"780 Main Street East, Milton",43.5234|-79.8670,1,1567,24,1981
+Kitchener,Bloor,BL,"1456 Bloor Street West, Toronto",43.6580|-79.4509,3,0,2,1975
+Kitchener,Weston,WE,"1865 Weston Road, Toronto",43.7002|-79.5132,3,295,4,1974
+Kitchener,Etobicoke North,ET,"1949 Kipling Avenue, Toronto",43.7063|-79.5624,1,687,4,1974
+Kitchener,Malton,MA,"3060 Derry Road East, Mississauga",43.7050|-79.6382,3,779,31,1974
+Kitchener,Bramalea,BE,"1713 Steeles Avenue, Brampton",43.7017|-79.6911,3,2377,32,1974
+Kitchener,Brampton,BR,"27 Church Street West, Brampton",43.6868|-79.7647,2,933,33,1974
+Kitchener,Mount Pleasant,MO,"1600 Bovaird Drive West, Brampton",43.6751|-79.8227,3,1116,34,2005
+Kitchener,Georgetown,GE,"55 Queen Street, Georgetown",43.6556|-79.9186,4,625,35,1978
+Kitchener,Acton,AC,"39 Eastern Avenue, Acton",43.6338|-80.0345,1,45,37,2013
+Kitchener,Guelph,GL,"79 Carden Street, Guelph",43.5446|-80.2464,1,12,39,2011
+Kitchener,Kitchener,KI,"126 Weber Street West, Kitchener",43.4556|-80.4933,1,0,27,2011
+Barrie,Downsview Park,DW,"1212 Sheppard Avenue West, Toronto",43.7514|-79.4780,1,0,19,2017
+Barrie,Rutherford,RU,"699 Westburne Drive, Vaughan",43.8384|-79.4983,1,970,61,2001
+Barrie,Maple,MP,"30 Station Street, Vaughan",43.8594|-79.5071,1,1319,61,1982
+Barrie,King City,KC,"7 Station Road, King City",43.9200|-79.5270,1,555,62,1982
+Barrie,Aurora,AU,"121 Wellington Street East, Aurora",44.0007|-79.4599,1,1462,63,1982
+Barrie,Newmarket,NE,"465 Davis Drive, Newmarket",44.0607|-79.4604,1,265,64,1982
+Barrie,East Gwillimbury,EA,"845 Green Lane East, East Gwillimbury",44.0778|-79.4552,1,646,44,2004
+Barrie,Bradford,BD,"300 Holland Street East, Bradford",44.1172|-79.5562,2,359,65,1982
+Barrie,Barrie South,BA,"833 Yonge Street, Barrie",44.3511|-79.6275,1,619,68,2007
+Barrie,Allandale Waterfront,AD,"24 Essa Road, Barrie",44.3747|-79.6887,1,160,69,2011
+Richmond Hill,Oriole,OR,"3300 Leslie Street, Toronto",43.7654|-79.3646,1,295,5,1978
+Richmond Hill,Old Cummer,OL,"5760 Leslie Street, Toronto",43.7924|-79.3712,1,466,5,1978
+Richmond Hill,Langstaff,LA,"10 Red Maple Road, Richmond Hill",43.8383|-79.4233,1,1137,60,1978
+Richmond Hill,Richmond Hill,RI,"6 Newkirk Road, Richmond Hill",43.8749|-79.4267,1,2324,61,1978
+Richmond Hill,Gormley,GO,"1650 Stouffville Road, Richmond Hill",43.9409|-79.3980,1,850,62,2016
+Richmond Hill,Bloomington,BM,"1796 York Regional Road 40, Richmond Hill",43.9759|-79.3981,1,1000,98,2021
+Stouffville,Kennedy,KE,"2467 Eglinton Avenue East, Toronto",43.7323|-79.2624,1,0,77,2005
+Stouffville,Agincourt,AG,"4100 Sheppard Avenue East, Toronto",43.7855|-79.2840,1,342,7,1982
+Stouffville,Milliken,MK,"39 Redlea Avenue, Toronto",43.8232|-79.3016,1,665,70,2005
+Stouffville,Unionville,UI,"155 YMCA Boulevard, Markham",43.8516|-79.3148,1,1620,71,1991
+Stouffville,Centennial,CE,"320 Bullock Drive, Markham",43.8737|-79.2894,1,451,72,2004
+Stouffville,Markham,MR,"214 Main Street North, Markham",43.8827|-79.2626,2,413,72,1982
+Stouffville,Mount Joy,MJ,"1801 Bur Oak Avenue, Markham",43.9004|-79.2630,1,1333,73,2004
+Stouffville,Stouffville,ST,"6176 Main Street, Stouffville",43.9714|-79.2501,1,243,74,1982
+Stouffville,Old Elm,LI,"12958 Tenth Line, Stouffville",43.9904|-79.2370,1,673,74,2008

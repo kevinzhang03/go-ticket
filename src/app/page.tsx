@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
+import { useTheme } from '@/components/ThemeProvider';
 
 import GoLogo from '@assets/go.svg';
 import Barcode from '@assets/barcode.svg';
@@ -22,9 +23,14 @@ interface TimeState {
   ticketNumber: string;
   validDuration: number;
   passengerCount: number;
+  sourceStation: string;
+  destinationStation: string;
+  isWeekendPass: boolean;
+  colorTheme: 'gold' | 'green';
 }
 
 const TicketPage: React.FC = () => {
+  const { theme, setTheme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeState, setTimeState] = useState<TimeState | null>(null);
 
@@ -40,6 +46,10 @@ const TicketPage: React.FC = () => {
       ticketNumber: generateTicketNumber(),
       validDuration: VALID_DURATION,
       passengerCount: 1,
+      sourceStation: 'Kitchener GO',
+      destinationStation: 'Union Station GO',
+      isWeekendPass: false,
+      colorTheme: 'gold',
     };
 
     setTimeState(initialState);
@@ -65,6 +75,28 @@ const TicketPage: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (timeState?.colorTheme) {
+      setTheme(timeState.colorTheme);
+    }
+  }, [timeState?.colorTheme, setTheme]);
+
+  useEffect(() => {
+    if (!timeState) return;
+
+    const now = new Date();
+    const elapsedSeconds = calculateElapsedTime(now, timeState.activationTime);
+    const remaining = Math.max(0, timeState.validDuration - elapsedSeconds);
+
+    setTimeState((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        timeRemaining: remaining,
+      };
+    });
+  }, [timeState?.activationTime, timeState?.validDuration]);
 
   const handleConfigChange = (newConfig: Partial<TimeState>) => {
     setTimeState((prev) => {
@@ -103,6 +135,10 @@ const TicketPage: React.FC = () => {
             activationTime: timeState.activationTime,
             ticketNumber: timeState.ticketNumber,
             passengerCount: timeState.passengerCount,
+            sourceStation: timeState.sourceStation,
+            destinationStation: timeState.destinationStation,
+            isWeekendPass: timeState.isWeekendPass,
+            colorTheme: timeState.colorTheme,
           }}
           onConfigChange={handleConfigChange}
           onGenerateNewTicket={handleGenerateNewTicket}
@@ -118,13 +154,15 @@ const TicketPage: React.FC = () => {
         </div>
       </Marquee>
       <p className="mb-8 text-lg">
-        Unionville GO to Union Station GO - Weekend Pass
+        {timeState.sourceStation} to {timeState.destinationStation}
+        {timeState.isWeekendPass && ' - Weekend Pass'}
       </p>
       <TicketCard
         ticketNumber={timeState.ticketNumber}
         currentTime={timeState.currentTime}
         timeSinceActivation={timeSinceActivation}
         passengerCount={timeState.passengerCount}
+        colorTheme={timeState.colorTheme}
       />
       <TicketFooter timeRemaining={timeState.timeRemaining} />
     </>
@@ -137,6 +175,7 @@ const generateTicketNumber = (): string => {
 };
 
 const calculateElapsedTime = (current: Date, activation: Date): number => {
+  // This will return negative seconds if activation is in the future
   return Math.floor((current.getTime() - activation.getTime()) / 1000);
 };
 
@@ -161,7 +200,18 @@ const formatTimeRemaining = (seconds: number): string => {
 };
 
 const formatTimeSinceActivation = (seconds: number): string => {
-  return new Date(seconds * 1000).toISOString().slice(11, 19); // Extracts HH:MM:SS
+  const isNegative = seconds < 0;
+  const absoluteSeconds = Math.abs(seconds);
+
+  // Format as HH:MM:SS
+  const hours = Math.floor(absoluteSeconds / 3600);
+  const minutes = Math.floor((absoluteSeconds % 3600) / 60);
+  const remainingSeconds = absoluteSeconds % 60;
+
+  const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+
+  // Add negative sign if needed
+  return isNegative ? `-${formattedTime}` : formattedTime;
 };
 
 interface TicketCardProps {
@@ -169,6 +219,7 @@ interface TicketCardProps {
   currentTime: Date;
   timeSinceActivation: number;
   passengerCount: number;
+  colorTheme: 'gold' | 'green';
 }
 
 const TicketCard: React.FC<TicketCardProps> = ({
@@ -176,12 +227,23 @@ const TicketCard: React.FC<TicketCardProps> = ({
   currentTime,
   timeSinceActivation,
   passengerCount,
+  colorTheme,
 }) => (
-  <div className="border-active-gold relative flex w-full flex-col items-center justify-center space-y-2 border-t-[6px] bg-white py-6 text-black shadow-md shadow-active-gold-light">
-    <div className="bg-active-gold absolute left-1/2 top-0 h-[24px] w-[24px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white"></div>
+  <div
+    className={`relative flex w-full flex-col items-center justify-center space-y-2 border-t-[6px] bg-white py-6 text-black shadow-md ${
+      colorTheme === 'gold'
+        ? 'border-active-gold shadow-active-gold-light'
+        : 'border-active-green shadow-active-green-light'
+    }`}
+  >
+    <div
+      className={`absolute -top-1 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white ${
+        colorTheme === 'gold' ? 'bg-active-gold' : 'bg-active-green'
+      }`}
+    ></div>
     <TicketInfoSection passengerCount={passengerCount} />
-    <hr className="border-primary w-full border-2 border-dashed" />
-    <BarcodeSection ticketNumber={ticketNumber} />
+    <hr className="w-full border border-dashed border-primary" />
+    <BarcodeSection ticketNumber={ticketNumber} colorTheme={colorTheme} />
     <TimeInfoSection
       currentTime={currentTime}
       timeSinceActivation={formatTimeSinceActivation(timeSinceActivation)}
@@ -197,7 +259,7 @@ const TicketInfoSection: React.FC<{ passengerCount: number }> = ({
       <p className="text-5xl font-bold">x{passengerCount}</p>
       <p className="text-xl">Passenger(s)</p>
     </div>
-    <div className="bg-primary h-full w-px overflow-visible">
+    <div className="h-full w-px overflow-visible bg-primary">
       <Image
         src={Train}
         width={24}
@@ -214,16 +276,26 @@ const TicketInfoSection: React.FC<{ passengerCount: number }> = ({
 
 interface BarcodeSectionProps {
   ticketNumber: string;
+  colorTheme: 'gold' | 'green';
 }
 
-const BarcodeSection: React.FC<BarcodeSectionProps> = ({ ticketNumber }) => (
+const BarcodeSection: React.FC<BarcodeSectionProps> = ({
+  ticketNumber,
+  colorTheme,
+}) => (
   <div className="flex w-full flex-col items-center px-6">
     <p className="text-xl">
       Ticket Number: <strong>{ticketNumber}</strong>
     </p>
     <div className="relative">
       <Image src={Barcode} alt="Barcode" className="w-full" />
-      <div className="animate-pulse-text-gold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2">
+      <div
+        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 ${
+          colorTheme === 'gold'
+            ? 'animate-pulse-text-gold'
+            : 'animate-pulse-text-green'
+        }`}
+      >
         <p className="whitespace-nowrap text-[26px]">VALID FOR TRAVEL</p>
       </div>
     </div>
@@ -256,7 +328,7 @@ interface TicketFooterProps {
 }
 
 const TicketFooter: React.FC<TicketFooterProps> = ({ timeRemaining }) => (
-  <div className="flex w-5/6 flex-col items-center justify-center text-center">
+  <div className="mt-36 flex w-5/6 flex-col items-center justify-center text-center">
     <p className="text-xl">
       Please show this screen to the proper authority on board the train
     </p>
