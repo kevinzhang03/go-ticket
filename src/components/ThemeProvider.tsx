@@ -27,7 +27,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
         className={
           theme === 'gold'
             ? 'flex h-screen animate-pulse-gold flex-col items-center text-white'
-            : 'animate-pulse-green flex h-screen flex-col items-center text-white'
+            : 'flex h-screen animate-pulse-green flex-col items-center text-white'
         }
       >
         {children}

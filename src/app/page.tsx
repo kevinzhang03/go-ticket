@@ -30,7 +30,7 @@ interface TimeState {
 }
 
 const TicketPage: React.FC = () => {
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeState, setTimeState] = useState<TimeState | null>(null);
 
@@ -96,6 +96,7 @@ const TicketPage: React.FC = () => {
         timeRemaining: remaining,
       };
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeState?.activationTime, timeState?.validDuration]);
 
   const handleConfigChange = (newConfig: Partial<TimeState>) => {
