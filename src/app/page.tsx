@@ -172,7 +172,12 @@ const TicketPage: React.FC = () => {
 
 // Helper functions
 const generateTicketNumber = (): string => {
-  return TICKET_PREFIX + Math.random().toString(36).slice(2, 10).toUpperCase();
+  const randomDigits = Array.from(
+    { length: 8 },
+    () => Math.floor(Math.random() * 10), // Generates a single digit (0-9)
+  ).join('');
+
+  return TICKET_PREFIX + randomDigits;
 };
 
 const calculateElapsedTime = (current: Date, activation: Date): number => {
