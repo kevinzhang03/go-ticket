@@ -146,8 +146,13 @@ const TicketPage: React.FC = () => {
         />
       )}
 
-      <Marquee speed={100} autoFill>
-        <div className="flex w-96 flex-row items-center justify-between">
+      <Marquee
+        speed={100}
+        autoFill
+        style={{ minHeight: '2rem' }}
+        className="flex items-center"
+      >
+        <div className="flex w-96 flex-row items-center justify-between py-1">
           <h1 className="text-2xl font-bold">GO TRANSIT</h1>
           <div className="flex flex-grow justify-center">
             <h1 className="text-2xl font-bold">•</h1>
@@ -246,7 +251,7 @@ const TicketCard: React.FC<TicketCardProps> = ({
       className={`absolute -top-1 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white ${
         colorTheme === 'gold' ? 'bg-active-gold' : 'bg-active-green'
       }`}
-    ></div>
+    />
     <TicketInfoSection passengerCount={passengerCount} />
     <hr className="w-full border border-dashed border-primary" />
     <BarcodeSection ticketNumber={ticketNumber} colorTheme={colorTheme} />
@@ -293,7 +298,7 @@ const BarcodeSection: React.FC<BarcodeSectionProps> = ({
     <p className="text-xl">
       Ticket Number: <strong>{ticketNumber}</strong>
     </p>
-    <div className="relative">
+    <div className="relative w-full">
       <Image src={Barcode} alt="Barcode" className="w-full" />
       <div
         className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 ${
@@ -334,11 +339,13 @@ interface TicketFooterProps {
 }
 
 const TicketFooter: React.FC<TicketFooterProps> = ({ timeRemaining }) => (
-  <div className="mt-36 flex w-5/6 flex-col items-center justify-center text-center">
-    <p className="text-xl">
-      Please show this screen to the proper authority on board the train
-    </p>
-    <p className="text-5xl">{formatTimeRemaining(timeRemaining)}</p>
+  <div className="flex flex-grow flex-col items-center justify-end">
+    <div className="mb-8 flex w-5/6 flex-col items-center justify-center text-center">
+      <p className="text-xl">
+        Please show this screen to the proper authority on board the train
+      </p>
+      <p className="text-5xl">{formatTimeRemaining(timeRemaining)}</p>
+    </div>
   </div>
 );
 
